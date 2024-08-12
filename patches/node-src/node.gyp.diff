@@ -2,15 +2,15 @@ Index: vscode/node-src/node.gyp
 ===================================================================
 --- vscode.orig/node-src/node.gyp
 +++ vscode/node-src/node.gyp
-@@ -823,6 +823,7 @@
- 
+@@ -824,6 +824,7 @@
        'include_dirs': [
          'src',
-+        'deps/cares/src/lib',
          'deps/postject',
++        'deps/cares/src/lib',
          '<(SHARED_INTERMEDIATE_DIR)' # for node_natives.h
        ],
-@@ -1139,144 +1140,6 @@
+       'dependencies': [
+@@ -1139,143 +1140,6 @@
          }],
        ],
      }, # fuzz_strings
@@ -151,11 +151,10 @@ Index: vscode/node-src/node.gyp
 -        }],
 -      ],
 -    }, # embedtest
--
+ 
      {
        'target_name': 'overlapped-checker',
-       'type': 'executable',
-@@ -1332,63 +1195,9 @@
+@@ -1332,63 +1196,9 @@
              ],
            },
          }],
@@ -221,12 +220,3 @@ Index: vscode/node-src/node.gyp
            ],
          }],
          # Avoid excessive LTO
-@@ -1396,7 +1205,7 @@
-           'ldflags': [ '-fno-lto' ],
-         }],
-       ],
--    }, # node_mksnapshot
-+    }, # mkcodecache
-   ], # end targets
- 
-   'conditions': [
