@@ -4,7 +4,6 @@ ARG PYTHON_VERSION=3.12
 
 ENV PYTHON_VERSION=${PYTHON_VERSION}
 
-RUN DEBIAN_FRONTEND=noninteractive apt -y remove gcc gcc-5 g++ clang
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y update \
  && DEBIAN_FRONTEND=noninteractive apt -y install \
     curl dirmngr apt-transport-https lsb-release ca-certificates
