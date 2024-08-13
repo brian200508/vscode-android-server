@@ -1,4 +1,4 @@
-FROM androidsdk/android-31:latest
+FROM bitriseio/ubuntu-22-android
 
 ARG PYTHON_VERSION=3.6.15
 
@@ -10,7 +10,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y update \
     curl dirmngr apt-transport-https lsb-release ca-certificates
 
 # Installs node.
-RUN curl -sSL https://deb.nodesource.com/setup_18.x | bash - && \
+RUN curl -sSL https://deb.nodesource.com/setup_20.x | bash - && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y nodejs
 
 # Installs yarn.
