@@ -1,6 +1,6 @@
 FROM bitriseio/ubuntu-22-android
 
-ARG PYTHON_VERSION=3.12.5
+ARG PYTHON_VERSION=3.12.2
 
 ENV PYTHON_VERSION=${PYTHON_VERSION}
 
@@ -45,13 +45,8 @@ RUN add-apt-repository ppa:ubuntu-toolchain-r/test && \
     DEBIAN_FRONTEND=noninteractive apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install gcc-9 g++-9 gcc-9-multilib g++-9-multilib -y
 
-RUN mkdir -p /tmp/python-build && cd /tmp/python-build && \
-    DEBIAN_FRONTEND=noninteractive apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y libbz2-dev && \
-    wget https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VERSION}.tgz && \
-    tar -xf Python-*.tgz && cd Python-* && \
-    ./configure --enable-optimizations && \
-    make -j 4 && sudo make install
-
+RUN DEBIAN_FRONTEND=noninteractive apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y libbz2-dev
+    
 RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9 10 && \
     update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-9 10 && \
     update-alternatives --install /usr/bin/cc cc /usr/bin/gcc 30 && \
