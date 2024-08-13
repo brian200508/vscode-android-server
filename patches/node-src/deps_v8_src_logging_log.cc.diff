@@ -2,12 +2,12 @@ Index: vscode/node-src/deps/v8/src/logging/log.cc
 ===================================================================
 --- vscode.orig/node-src/deps/v8/src/logging/log.cc
 +++ vscode/node-src/deps/v8/src/logging/log.cc
-@@ -308,7 +308,7 @@ class PerfBasicLogger : public CodeEvent
-   FILE* perf_output_handle_;
+@@ -367,7 +367,7 @@ class LinuxPerfBasicLogger : public CodeEventLogger {
+   static uint64_t reference_count_;
  };
  
--const char PerfBasicLogger::kFilenameFormatString[] = "/tmp/perf-%d.map";
-+const char PerfBasicLogger::kFilenameFormatString[] = "/data/data/vn.vhn.vsc/files/tmp/perf-%d.map";
+-const char LinuxPerfBasicLogger::kFilenameFormatString[] = "/tmp/perf-%d.map";
++const char LinuxPerfBasicLogger::kFilenameFormatString[] = "/data/data/vn.vhn.vsc/files/tmp/perf-%d.map";
  // Extra space for the PID in the filename
- const int PerfBasicLogger::kFilenameBufferPadding = 16;
+ const int LinuxPerfBasicLogger::kFilenameBufferPadding = 16;
  
