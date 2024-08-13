@@ -1,4 +1,4 @@
-FROM bitriseio/android-ndk:v2021_05_29-08_17-b2417
+FROM androidsdk/android-31:latest
 
 ARG PYTHON_VERSION=3.6.15
 
