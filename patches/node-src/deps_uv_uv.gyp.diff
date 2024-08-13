@@ -2,23 +2,7 @@ Index: vscode/node-src/deps/uv/uv.gyp
 ===================================================================
 --- vscode.orig/node-src/deps/uv/uv.gyp
 +++ vscode/node-src/deps/uv/uv.gyp
-@@ -132,6 +132,7 @@
-       'src/unix/procfs-exepath.c',
-       'src/unix/random-getrandom.c',
-       'src/unix/random-sysctl-linux.c',
-+      'src/unix/epoll.c',
-     ],
-     'uv_sources_android': [
-       'src/unix/linux.c',
-@@ -139,6 +140,7 @@
-       'src/unix/random-getentropy.c',
-       'src/unix/random-getrandom.c',
-       'src/unix/random-sysctl-linux.c',
-+      'src/unix/epoll.c',
-     ],
-     'uv_sources_solaris': [
-       'src/unix/no-proctitle.c',
-@@ -155,7 +157,7 @@
+@@ -155,7 +155,7 @@
        'target_name': 'libuv',
        'toolsets': ['host', 'target'],
        'type': '<(uv_library)',
@@ -27,7 +11,7 @@ Index: vscode/node-src/deps/uv/uv.gyp
          'include',
          'src/',
        ],
-@@ -170,7 +172,7 @@
+@@ -170,7 +170,7 @@
            '<@(shared_unix_defines)',
            '<@(shared_zos_defines)',
          ],
