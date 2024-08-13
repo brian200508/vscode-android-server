@@ -1,8 +1,8 @@
 FROM bitriseio/ubuntu-22-android
 
-ARG PYTHON_VERSION=3.12.2
+#ARG PYTHON_VERSION=3.12.2
 
-ENV PYTHON_VERSION=${PYTHON_VERSION}
+#ENV PYTHON_VERSION=${PYTHON_VERSION}
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y update \
  && DEBIAN_FRONTEND=noninteractive apt -y install \
@@ -52,8 +52,7 @@ RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9 10 && \
     update-alternatives --install /usr/bin/cc cc /usr/bin/gcc 30 && \
     update-alternatives --set cc /usr/bin/gcc && \
     update-alternatives --install /usr/bin/c++ c++ /usr/bin/g++ 30 && \
-    update-alternatives --set c++ /usr/bin/g++ && \
-    update-alternatives --install /usr/bin/python3 python3 /usr/local/bin/python$(echo ${PYTHON_VERSION} | awk 'BEGIN{FS=OFS="."} NF--') 1
+    update-alternatives --set c++ /usr/bin/g++
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y update \
  && DEBIAN_FRONTEND=noninteractive apt-get -y install libc6-dev-i386
