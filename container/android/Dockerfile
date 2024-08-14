@@ -1,4 +1,4 @@
-FROM bitriseio/android-ndk:v2021_05_29-08_17-b2417
+FROM bitriseio/android-ndk-20.04:v2024_05_22-10_34-b2222
 
 #ARG PYTHON_VERSION=3.12.2
 
@@ -7,15 +7,6 @@ FROM bitriseio/android-ndk:v2021_05_29-08_17-b2417
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y update \
  && DEBIAN_FRONTEND=noninteractive apt -y install \
     curl dirmngr apt-transport-https lsb-release ca-certificates
-
-# Installs glibc.
-RUN DEBIAN_FRONTEND=noninteractive apt-get -y update
-#RUN DEBIAN_FRONTEND=noninteractive apt-get install -y glibc-2.28
-RUN DEBIAN_FRONTEND=noninteractive apt-get source glibc-2.28
-RUN DEBIAN_FRONTEND=noninteractive cd glibc-2.28
-RUN DEBIAN_FRONTEND=noninteractive ./configure
-RUN DEBIAN_FRONTEND=noninteractive make
-RUN DEBIAN_FRONTEND=noninteractive make install
 
 # Installs node.
 RUN curl -sSL https://deb.nodesource.com/setup_20.x | bash - && \
