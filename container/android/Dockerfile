@@ -6,7 +6,7 @@ FROM bitriseio/android-ndk:v2021_05_29-08_17-b2417
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y update \
  && DEBIAN_FRONTEND=noninteractive apt -y install \
-    libc6 binutils curl dirmngr apt-transport-https lsb-release ca-certificates
+    curl dirmngr apt-transport-https lsb-release ca-certificates
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y update
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y upgrade
 
