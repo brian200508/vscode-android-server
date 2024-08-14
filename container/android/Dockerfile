@@ -6,7 +6,11 @@ FROM bitriseio/android-ndk:v2021_05_29-08_17-b2417
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y update \
  && DEBIAN_FRONTEND=noninteractive apt -y install \
-    glibc curl dirmngr apt-transport-https lsb-release ca-certificates
+    curl dirmngr apt-transport-https lsb-release ca-certificates
+
+# Installs envsubst.
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y update \
+ && DEBIAN_FRONTEND=noninteractive apt-get install -y glibc
 
 # Installs node.
 RUN curl -sSL https://deb.nodesource.com/setup_20.x | bash - && \
