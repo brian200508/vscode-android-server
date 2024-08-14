@@ -10,7 +10,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y update \
 
 # Installs glibc.
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y update \
- && DEBIAN_FRONTEND=noninteractive apt-get install -y glibc2.28
+ && DEBIAN_FRONTEND=noninteractive apt-get install -y glibc-2.28
 
 # Installs node.
 RUN curl -sSL https://deb.nodesource.com/setup_20.x | bash - && \
