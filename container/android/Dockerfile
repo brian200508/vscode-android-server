@@ -9,8 +9,13 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y update \
     curl dirmngr apt-transport-https lsb-release ca-certificates
 
 # Installs glibc.
-RUN DEBIAN_FRONTEND=noninteractive apt-get -y update \
- && DEBIAN_FRONTEND=noninteractive apt-get install -y glibc-2.28
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y update
+#RUN DEBIAN_FRONTEND=noninteractive apt-get install -y glibc-2.28
+RUN DEBIAN_FRONTEND=noninteractive apt-get source glibc-2.28
+RUN DEBIAN_FRONTEND=noninteractive cd glibc-2.28
+RUN DEBIAN_FRONTEND=noninteractive ./configure
+RUN DEBIAN_FRONTEND=noninteractive make
+RUN DEBIAN_FRONTEND=noninteractive make install
 
 # Installs node.
 RUN curl -sSL https://deb.nodesource.com/setup_20.x | bash - && \
