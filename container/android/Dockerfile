@@ -1,4 +1,4 @@
-FROM bitriseio/android-ndk-20.04:v2024_05_22-10_34-b2222
+FROM bitriseio/android-ndk:v2021_05_29-08_17-b2417
 
 #ARG PYTHON_VERSION=3.12.2
 
@@ -6,7 +6,7 @@ FROM bitriseio/android-ndk-20.04:v2024_05_22-10_34-b2222
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y update \
  && DEBIAN_FRONTEND=noninteractive apt -y install \
-    curl dirmngr apt-transport-https lsb-release ca-certificates
+    binutils curl dirmngr apt-transport-https lsb-release ca-certificates
 
 # Installs node.
 RUN curl -sSL https://deb.nodesource.com/setup_20.x | bash - && \
