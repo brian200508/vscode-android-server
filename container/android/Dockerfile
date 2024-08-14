@@ -1,4 +1,4 @@
-FROM bitriseio/ubuntu-22-android
+FROM bitriseio/android-ndk-20.04:v2024_05_22-10_34-b2222
 
 #ARG PYTHON_VERSION=3.12.2
 
@@ -46,7 +46,7 @@ RUN add-apt-repository ppa:ubuntu-toolchain-r/test && \
     DEBIAN_FRONTEND=noninteractive apt-get install gcc-9 g++-9 gcc-9-multilib g++-9-multilib -y
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y libbz2-dev
-    
+
 RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9 10 && \
     update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-9 10 && \
     update-alternatives --install /usr/bin/cc cc /usr/bin/gcc 30 && \
@@ -59,7 +59,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y update \
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 RUN . ~/.cargo/env && rustup target add x86_64-linux-android i686-linux-android aarch64-linux-android armv7-linux-androideabi
 
-ENV NDK=/usr/lib/android-ndk
+ENV NDK=/opt/android-ndk
 ENV NDK_BIN_ROOT=$NDK/toolchains/llvm/prebuilt/linux-x86_64/bin
 ENV ANDROID_ARCH=aarch64
 
