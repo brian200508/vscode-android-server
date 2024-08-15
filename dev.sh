@@ -6,11 +6,13 @@ main() {
   echo "env:"
   env
   echo "PATH:"
+  echo "====="
   echo $PATH
+  echo "---"
   echo "/opt:"
   ls /opt
-  echo "/opt/android-sdk-linux:"
-  ls /opt/android-sdk-linux
+  echo "/usr/local/lib/android/sdk/ndk/27.0.12077973:"
+  ls /usr/local/lib/android/sdk/ndk/27.0.12077973
 
   cd "$(dirname "$0")/"
 
@@ -83,7 +85,7 @@ main() {
           git clean -dfX
           git checkout -f HEAD
           (cd ..; rm -rf .pc; QUILT_PATCHES=patches/node-src quilt push -a -f)
-          $USERRUN PATH=/vscode-build/hostbin:$PATH CC_host=gcc CXX_host=g++ LINK_host=g++ ./android-configure /usr/lib/android-sdk/ndk/25.2.9519653/ $ANDROID_BUILD_API_VERSION $NODE_CONFIGURE_NAME
+          $USERRUN PATH=/vscode-build/hostbin:$PATH CC_host=gcc CXX_host=g++ LINK_host=g++ ./android-configure /usr/local/lib/android/sdk/ndk/27.0.12077973/ $ANDROID_BUILD_API_VERSION $NODE_CONFIGURE_NAME
           NODE_MAKE_CUSTOM_LDFLAGS=
           if [[ "$ANDROID_ARCH" == "x86" ]]; then
             NODE_MAKE_CUSTOM_LDFLAGS=-latomic
@@ -156,7 +158,7 @@ main() {
         fi
         rm -rf cs-$ANDROID_ARCH.tgz libc++_shared.so node
         cp node-src/out/Release/node ./
-        cp /usr/lib/android-sdk/ndk/25.2.9519653/sources/cxx-stl/llvm-libc++/libs/$ARCH_NAME/libc++_shared.so ./libc++_shared.so
+        cp /usr/local/lib/android/sdk/ndk/27.0.12077973/sources/cxx-stl/llvm-libc++/libs/$ARCH_NAME/libc++_shared.so ./libc++_shared.so
         VERSION_SUFFIX=
         if [[ -f patch_version ]]; then
           VERSION_SUFFIX="-p$(cat patch_version)"
