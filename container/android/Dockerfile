@@ -62,9 +62,9 @@ RUN add-apt-repository ppa:ubuntu-toolchain-r/test && \
 RUN mkdir -p /tmp/python-build
 RUN cd /tmp/python-build && DEBIAN_FRONTEND=noninteractive apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y libbz2-dev
 RUN cd /tmp/python-build && wget https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VERSION}.tgz
-RUN cd /tmp/python-build && tar -xf Python-*.tgz && cd Python-*
-RUN cd /tmp/python-build && ./configure --enable-optimizations
-RUN cd /tmp/python-build && make -j 4 && sudo make install
+RUN cd /tmp/python-build && tar -xf Python-*.tgz
+RUN cd /tmp/python-build/Python-* && ./configure --enable-optimizations
+RUN cd /tmp/python-build/Python-* && make -j 4 && sudo make install
 
 RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 10 && \
     update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-11 10 && \
