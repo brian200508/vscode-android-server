@@ -8,11 +8,10 @@ main() {
   echo "PATH:"
   echo "====="
   echo $PATH
-  echo "---"
+  echo "/usr:"
+  tree -d /usr/
   echo "/opt:"
-  ls /opt
-  echo "/usr/local/lib/android/sdk/ndk/27.0.12077973:"
-  ls /usr/local/lib/android/sdk/ndk/27.0.12077973
+  tree -d /opt/
 
   cd "$(dirname "$0")/"
 
