@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 
 main() {
+  echo $PATH
+  ls /opt
+  ls /usr/lib
+
   cd "$(dirname "$0")/"
 
     case "$1" in
