@@ -4,6 +4,10 @@ FROM saschpe/android-ndk:33-jdk11.0.20_8-ndk25.2.9519653-cmake3.22.1
 
 #ENV PYTHON_VERSION=${PYTHON_VERSION}
 
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y update \
+ && DEBIAN_FRONTEND=noninteractive apt -y install \
+    tree
+
 RUN DEBIAN_FRONTEND=noninteractive echo "/usr:"
 RUN DEBIAN_FRONTEND=noninteractive tree -d /usr/
 RUN DEBIAN_FRONTEND=noninteractive echo "/opt:"
