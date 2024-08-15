@@ -51,7 +51,11 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y update \
 
 RUN update-alternatives --remove-all gcc || true; update-alternatives --remove-all g++ || true
 
-RUN add-apt-repository ppa:ubuntu-toolchain-r/test && \
+# Installs add-apt-repository.
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y update \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y software-properties-common
+
+    RUN add-apt-repository ppa:ubuntu-toolchain-r/test && \
     DEBIAN_FRONTEND=noninteractive apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install gcc-11 g++-11 gcc-11-multilib g++-11-multilib -y
 
