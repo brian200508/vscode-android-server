@@ -47,11 +47,9 @@ RUN add-apt-repository ppa:ubuntu-toolchain-r/test && \
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y libbz2-dev
 
-RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9 10 && \
-    update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-9 10 && \
-    update-alternatives --install /usr/bin/cc cc /usr/bin/gcc 30 && \
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y update && \
+    DEBIAN_FRONTEND=noninteractive apt-get -y install gcc g++ && \
     update-alternatives --set cc /usr/bin/gcc && \
-    update-alternatives --install /usr/bin/c++ c++ /usr/bin/g++ 30 && \
     update-alternatives --set c++ /usr/bin/g++
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y update \
