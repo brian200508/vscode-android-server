@@ -41,14 +41,12 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y update \
 
 RUN update-alternatives --remove-all gcc || true; update-alternatives --remove-all g++ || true
 
-RUN add-apt-repository ppa:ubuntu-toolchain-r/test && \
-    DEBIAN_FRONTEND=noninteractive apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install gcc-9 g++-9 gcc-9-multilib g++-9-multilib -y
+RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
+    DEBIAN_FRONTEND=noninteractive apt-get install gcc g++ gcc-multilib g++-multilib -y
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y libbz2-dev
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y update && \
-    DEBIAN_FRONTEND=noninteractive apt-get -y install gcc g++ && \
     update-alternatives --set cc /usr/bin/gcc && \
     update-alternatives --set c++ /usr/bin/g++
 
