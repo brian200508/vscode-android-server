@@ -72,8 +72,9 @@ RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 10 && \
     update-alternatives --install /usr/bin/cc cc /usr/bin/gcc 30 && \
     update-alternatives --set cc /usr/bin/gcc && \
     update-alternatives --install /usr/bin/c++ c++ /usr/bin/g++ 30 && \
-    update-alternatives --set c++ /usr/bin/g++ && \
-    update-alternatives --install /usr/bin/python3 python3 /usr/local/bin/python$(echo ${PYTHON_VERSION} | awk 'BEGIN{FS=OFS="."} NF--') 1
+    update-alternatives --set c++ /usr/bin/g++
+#    && \
+#    update-alternatives --install /usr/bin/python3 python3 /usr/local/bin/python$(echo ${PYTHON_VERSION} | awk 'BEGIN{FS=OFS="."} NF--') 1
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y update \
  && DEBIAN_FRONTEND=noninteractive apt-get -y install libc6-dev-i386
