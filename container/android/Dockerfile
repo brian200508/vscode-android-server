@@ -1,4 +1,4 @@
-FROM bitriseio/android-ndk-20.04:v2024_05_22-10_34-b2222
+FROM saschpe/android-ndk:33-jdk11.0.20_8-ndk25.2.9519653-cmake3.22.1
 
 #ARG PYTHON_VERSION=3.12.2
 
