@@ -6,7 +6,7 @@ FROM saschpe/android-ndk:33-jdk11.0.20_8-ndk25.2.9519653-cmake3.22.1
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y update \
  && DEBIAN_FRONTEND=noninteractive apt -y install \
-    curl dirmngr apt-transport-https lsb-release ca-certificates
+    sudo curl dirmngr apt-transport-https lsb-release ca-certificates
 
 # Installs node.
 RUN curl -sSL https://deb.nodesource.com/setup_20.x | bash - && \
