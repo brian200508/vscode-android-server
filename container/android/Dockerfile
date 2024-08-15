@@ -1,8 +1,8 @@
 FROM saschpe/android-ndk:33-jdk11.0.20_8-ndk25.2.9519653-cmake3.22.1
 
-#ARG PYTHON_VERSION=3.12.2
+ARG PYTHON_VERSION=3.10.12
 
-#ENV PYTHON_VERSION=${PYTHON_VERSION}
+ENV PYTHON_VERSION=${PYTHON_VERSION}
 
 # Debug
 #RUN DEBIAN_FRONTEND=noninteractive apt-get -y update \
@@ -51,14 +51,24 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y update \
 
 RUN update-alternatives --remove-all gcc || true; update-alternatives --remove-all g++ || true
 
-RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install gcc g++ gcc-multilib g++-multilib -y
+RUN add-apt-repository ppa:ubuntu-toolchain-r/test && \
+    DEBIAN_FRONTEND=noninteractive apt-get update && \
+    DEBIAN_FRONTEND=noninteractive apt-get install gcc-11 g++-11 gcc-11-multilib g++-11-multilib -y
 
-RUN DEBIAN_FRONTEND=noninteractive apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y libbz2-dev
+RUN mkdir -p /tmp/python-build && cd /tmp/python-build && \
+    DEBIAN_FRONTEND=noninteractive apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y libbz2-dev && \
+    wget https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VERSION}.tgz && \
+    tar -xf Python-*.tgz && cd Python-* && \
+    ./configure --enable-optimizations && \
+    make -j 4 && sudo make install
 
-RUN DEBIAN_FRONTEND=noninteractive apt-get -y update && \
+RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 10 && \
+    update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-11 10 && \
+    update-alternatives --install /usr/bin/cc cc /usr/bin/gcc 30 && \
     update-alternatives --set cc /usr/bin/gcc && \
-    update-alternatives --set c++ /usr/bin/g++
+    update-alternatives --install /usr/bin/c++ c++ /usr/bin/g++ 30 && \
+    update-alternatives --set c++ /usr/bin/g++ && \
+    update-alternatives --install /usr/bin/python3 python3 /usr/local/bin/python$(echo ${PYTHON_VERSION} | awk 'BEGIN{FS=OFS="."} NF--') 1
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y update \
  && DEBIAN_FRONTEND=noninteractive apt-get -y install libc6-dev-i386
