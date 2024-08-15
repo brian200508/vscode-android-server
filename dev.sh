@@ -1,9 +1,16 @@
 #!/usr/bin/env bash
 
 main() {
+  echo "DEBUG"
+  echo "====="
+  echo "env:"
+  env
+  echo "PATH:"
   echo $PATH
+  echo "/opt:"
   ls /opt
-  ls /usr/lib
+  echo "/opt/android-sdk-linux:"
+  ls /opt/android-sdk-linux
 
   cd "$(dirname "$0")/"
 
