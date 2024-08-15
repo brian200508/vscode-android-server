@@ -4,14 +4,15 @@ FROM saschpe/android-ndk:33-jdk11.0.20_8-ndk25.2.9519653-cmake3.22.1
 
 #ENV PYTHON_VERSION=${PYTHON_VERSION}
 
-RUN DEBIAN_FRONTEND=noninteractive apt-get -y update \
- && DEBIAN_FRONTEND=noninteractive apt -y install \
-    tree
-
-RUN DEBIAN_FRONTEND=noninteractive echo "/usr:"
-RUN DEBIAN_FRONTEND=noninteractive tree -d /usr/
-RUN DEBIAN_FRONTEND=noninteractive echo "/opt:"
-RUN DEBIAN_FRONTEND=noninteractive tree -d /opt/
+# Debug
+#RUN DEBIAN_FRONTEND=noninteractive apt-get -y update \
+# && DEBIAN_FRONTEND=noninteractive apt -y install \
+#    tree
+#
+#RUN DEBIAN_FRONTEND=noninteractive echo "/usr:"
+#RUN DEBIAN_FRONTEND=noninteractive tree -d /usr/
+#RUN DEBIAN_FRONTEND=noninteractive echo "/opt:"
+#RUN DEBIAN_FRONTEND=noninteractive tree -d /opt/
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y update \
  && DEBIAN_FRONTEND=noninteractive apt -y install \
@@ -64,7 +65,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y update \
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 RUN . ~/.cargo/env && rustup target add x86_64-linux-android i686-linux-android aarch64-linux-android armv7-linux-androideabi
 
-ENV NDK=/usr/local/lib/android/sdk/ndk/27.0.12077973
+ENV NDK=/opt/android-sdk-linux/ndk/25.2.9519653
 ENV NDK_BIN_ROOT=$NDK/toolchains/llvm/prebuilt/linux-x86_64/bin
 ENV ANDROID_ARCH=aarch64
 
