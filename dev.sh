@@ -8,10 +8,6 @@ main() {
   echo "PATH:"
   echo "====="
   echo $PATH
-  echo "/usr:"
-  tree -d /usr/
-  echo "/opt:"
-  tree -d /opt/
 
   cd "$(dirname "$0")/"
 
