@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 main() {
+  export GYP_DEFINES="android_ndk_path=''"
   cd "$(dirname "$0")/"
 
     case "$1" in
