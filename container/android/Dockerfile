@@ -59,6 +59,9 @@ RUN add-apt-repository ppa:ubuntu-toolchain-r/test && \
     DEBIAN_FRONTEND=noninteractive apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install python3 gcc-11 g++-11 gcc-11-multilib g++-11-multilib -y
 
+RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
+    DEBIAN_FRONTEND=noninteractive apt build-dep python3
+
 RUN mkdir -p /tmp/python-build
 RUN cd /tmp/python-build && DEBIAN_FRONTEND=noninteractive apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y libbz2-dev
 RUN cd /tmp/python-build && wget https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VERSION}.tgz
