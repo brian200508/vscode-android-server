@@ -27,7 +27,7 @@ if [[ "$1" == "/usr/lib/node_modules/npm/node_modules/node-gyp/bin/node-gyp.js" 
 elif [[ "$1" =~ /node-pre-gyp$ ]]; then
     case "$(basename "$(pwd)")" in
         argon2)
-            APPEND_ARGS+=( --build-from-source )
+            #APPEND_ARGS+=( --build-from-source )
             # disable sse
             sed -i'' "s/target_arch == 'ia32' or target_arch == 'x64'/OS == 'abcdefzzzz'/g" binding.gyp
             ;;
