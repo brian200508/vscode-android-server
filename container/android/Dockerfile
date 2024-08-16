@@ -78,6 +78,8 @@ RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 10 && \
     update-alternatives --set c++ /usr/bin/g++ && \
     update-alternatives --install /usr/bin/python3 python3 /usr/local/bin/python$(echo ${PYTHON_VERSION} | awk 'BEGIN{FS=OFS="."} NF--') 1
 
+ENV CC=/usr/bin/gcc
+
 # Debug
 RUN DEBIAN_FRONTEND=noninteractive echo "env:"
 RUN DEBIAN_FRONTEND=noninteractive env
