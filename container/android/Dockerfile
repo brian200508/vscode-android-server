@@ -57,7 +57,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y update \
 
 RUN add-apt-repository ppa:ubuntu-toolchain-r/test && \
     DEBIAN_FRONTEND=noninteractive apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install python3 gcc-11 g++-11 gcc-11-multilib g++-11-multilib -y
+    DEBIAN_FRONTEND=noninteractive apt-get install python3 gcc-9 g++-9 gcc-9-multilib g++-9-multilib -y
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y zlib*
@@ -70,8 +70,8 @@ RUN cd /tmp/python-build/Python-* && ./configure --enable-optimizations
 RUN cd /tmp/python-build/Python-* && make -j 4
 RUN cd /tmp/python-build/Python-* && make install
 
-RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 10 && \
-    update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-11 10 && \
+RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9 10 && \
+    update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-9 10 && \
     update-alternatives --install /usr/bin/cc cc /usr/bin/gcc 30 && \
     update-alternatives --set cc /usr/bin/gcc && \
     update-alternatives --install /usr/bin/c++ c++ /usr/bin/g++ 30 && \
