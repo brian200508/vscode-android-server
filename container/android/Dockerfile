@@ -80,6 +80,9 @@ RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 10 && \
 
 ENV CC=/usr/bin/gcc
 
+RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y python-is-python3
+
 # Debug
 RUN DEBIAN_FRONTEND=noninteractive echo "env:"
 RUN DEBIAN_FRONTEND=noninteractive env
