@@ -1,7 +1,6 @@
 [submodule "code-server"]
 	path = code-server
 	url = git@github.com:brian200508/code-server.git
-	branch = main-brian200508-code-server-4.95.x
     ignore = dirty
 [submodule "node-src"]
 	path = node-src
