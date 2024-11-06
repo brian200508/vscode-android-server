@@ -1,6 +1,6 @@
 [submodule "code-server"]
 	path = code-server
-	url = git@github.com:vhqtvn/code-server.git
+	url = git@github.com:brian200508/code-server.git
     ignore = dirty
 [submodule "node-src"]
 	path = node-src
