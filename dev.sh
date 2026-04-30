@@ -199,7 +199,6 @@ main() {
             }
             rm -rf release release-standalone node_modules
             export NODE_PATH=/usr/lib/node_modules
-            npm install -g argon2
             npm install -g @mapbox/node-pre-gyp node-addon-api
             $USERRUN mv -f package-lock.json.origbk package-lock.json || true
             $NPM_BIN ci
