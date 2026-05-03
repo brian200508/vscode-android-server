@@ -18,13 +18,13 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-26.04
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         arch:
           - aarch64
-          #FIXME: - arm
-          #FIXME: - x86
+          - arm
+          - x86
           - x86_64
     steps:
       - name: Git clone
