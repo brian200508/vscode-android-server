@@ -67,7 +67,7 @@ jobs:
             /usr/bin/time -v bash -c "./dev.sh apply-patch && BUILD_NODE=1 BUILD_RELEASE=1 ANDROID_ARCH=${{ matrix.arch }} ./dev.sh release"
           '
       - name: Store artifacts
-        uses: actions/upload-artifact@v8
+        uses: actions/upload-artifact@v7
         with:
           name: cs-archives-${{ github.sha }}-${{ matrix.arch }}
           path: "*.tgz"
