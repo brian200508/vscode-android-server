@@ -18,10 +18,10 @@ RUN apt-get update -qq && \
     apt-get clean
 
 RUN mkdir -p /etc/apt/keyrings && \
-    curl -fsSL https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x3B4FE6ACC0B21F32 | gpg --dearmor -o /etc/apt/keyrings/key1.gpg || \
-    curl -fsSL https://keys.openpgp.org/vks/v1/by-fingerprint/3B4FE6ACC0B21F32 | gpg --dearmor -o /etc/apt/keyrings/key1.gpg && \
-    curl -fsSL https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x871920D1991BC93C | gpg --dearmor -o /etc/apt/keyrings/key2.gpg || \
-    curl -fsSL https://keys.openpgp.org/vks/v1/by-fingerprint/871920D1991BC93C | gpg --dearmor -o /etc/apt/keyrings/key2.gpg
+    (curl -fsSL "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x3B4FE6ACC0B21F32" | gpg --dearmor -o /etc/apt/keyrings/key1.gpg) || \
+    (curl -fsSL "https://keys.openpgp.org/vks/v1/by-fingerprint/3B4FE6ACC0B21F32" | gpg --dearmor -o /etc/apt/keyrings/key1.gpg) && \
+    (curl -fsSL "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x871920D1991BC93C" | gpg --dearmor -o /etc/apt/keyrings/key2.gpg) || \
+    (curl -fsSL "https://keys.openpgp.org/vks/v1/by-fingerprint/871920D1991BC93C" | gpg --dearmor -o /etc/apt/keyrings/key2.gpg)
 
 RUN apt-get update -qq
 
