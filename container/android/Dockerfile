@@ -55,8 +55,9 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y install \
 RUN curl -sL https://deb.nodesource.com/setup_22.x | sudo -E bash -
 RUN sudo apt-get install -y nodejs
 
-# Install npm - avoid global upgrade, use apt instead
-RUN sudo apt-get install -y npm
+# npm is already included with nodejs, no need to install separately
+# Verify installation
+RUN node --version && npm --version
 
 # Install Yarn
 # as described at: https://yarnpkg.com/en/docs/install#linux-tab
