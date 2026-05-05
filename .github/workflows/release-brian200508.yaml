@@ -64,6 +64,7 @@ jobs:
             if ! command -v /usr/bin/time >/dev/null 2>&1; then
               apt-get update && apt-get install -y time
             fi
+            export npm_config_ignore_scripts=true
             /usr/bin/time -v bash -c "./dev.sh apply-patch && BUILD_NODE=1 BUILD_RELEASE=1 ANDROID_ARCH=${{ matrix.arch }} ./dev.sh release"
           '
       - name: Store artifacts
