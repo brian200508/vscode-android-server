@@ -12,6 +12,7 @@ ENV LANG="en_US.UTF-8" \
 
 # ------------------------------------------------------
 # --- Base pre-installed tools
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 3B4FE6ACC0B21F32 871920D1991BC93C
 RUN apt-get update -qq
 
 # Generate proper EN US UTF-8 locale
