@@ -12,6 +12,11 @@ ENV LANG="en_US.UTF-8" \
 
 # ------------------------------------------------------
 # --- Base pre-installed tools
+# Install gnupg first, required for apt-key operations
+RUN apt-get update -qq && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y curl gnupg && \
+    apt-get clean
+
 RUN mkdir -p /etc/apt/keyrings && \
     curl -fsSL https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x3B4FE6ACC0B21F32 | gpg --dearmor -o /etc/apt/keyrings/key1.gpg && \
     curl -fsSL https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x871920D1991BC93C | gpg --dearmor -o /etc/apt/keyrings/key2.gpg
