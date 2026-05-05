@@ -1,0 +1,120 @@
+name: Generate code-server archives (brian200508)
+
+permissions: 
+  contents: write
+
+on:
+  # push:
+  #   branches:
+  #   - master
+  #   paths:
+  #   - .github/workflows/bootstrap_archives.yml
+  # schedule:
+  #   - cron: "0 0 * * 0"
+  workflow_dispatch:
+
+env:
+  IMAGE_NAME: brian200508/vheditor-codeserver-builder
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    strategy:
+      matrix:
+        arch:
+          - aarch64
+          - arm
+          - x86
+          - x86_64
+    steps:
+      - name: Git clone
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          submodules: recursive
+      - name: Free additional disk space
+        run: |
+          sudo apt purge -yq $(dpkg -l | grep '^ii' | awk '{ print $2 }' | grep -P '(cabal-|dotnet-|ghc-|libmono|php|aspnetcore)') \
+            firefox google-chrome-stable microsoft-edge-stable mono-devel mono-runtime-common monodoc-manual ruby
+          sudo apt autoremove -yq
+          sudo apt clean
+          sudo rm -fr /opt/ghc /opt/hostedtoolcache /usr/lib/node_modules /usr/local /usr/share/dotnet /usr/share/swift /usr/local/lib/android /opt/hostedtoolcache/CodeQL
+          sudo docker image prune --all --force
+          sudo docker builder prune -a
+      - name: Add swap for heavy builds
+        run: |
+          sudo swapoff -a || true
+          sudo fallocate -l 4G /swapfile
+          sudo chmod 600 /swapfile
+          sudo mkswap /swapfile
+          sudo swapon /swapfile
+      - name: Log in to the Container registry
+        uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
+        with:
+          username: brian200508
+          password: ${{ secrets.DOCKERHUB_PAT }}
+      - name: Pull Docker image
+        run: |
+          docker pull $IMAGE_NAME:master
+          docker tag $IMAGE_NAME:master vsandroidenv:latest
+      - name: Create archive
+        run: |
+          ./dev.sh docker-run bash -c '
+            set -e
+            if ! command -v /usr/bin/time >/dev/null 2>&1; then
+              apt-get update && apt-get install -y time
+            fi
+            /usr/bin/time -v bash -c "./dev.sh apply-patch && BUILD_NODE=1 BUILD_RELEASE=1 ANDROID_ARCH=${{ matrix.arch }} ./dev.sh release"
+          '
+      - name: Store artifacts
+        uses: actions/upload-artifact@v7
+        with:
+          name: cs-archives-${{ github.sha }}-${{ matrix.arch }}
+          path: "*.tgz"
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Git clone
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - name: Fetch archives
+        uses: actions/download-artifact@v8
+        with:
+          pattern: cs-archives-${{ github.sha }}-*
+          path: ./
+          merge-multiple: true
+      - name: Get checksums
+        id: get_checksums
+        run: |
+          checksums=$(printf 'SHA-256:\n```\n%s\n```\n' "$(sha256sum *.tgz)")
+          # checksums="${checksums//'%'/'%25'}"
+          # checksums="${checksums//$'\n'/'%0A'}"
+          # checksums="${checksums//$'\r'/'%0D'}"
+          echo "checksums<<CSCONTENT" >>$GITHUB_OUTPUT
+          echo "$checksums" >>$GITHUB_OUTPUT
+          echo "CSCONTENT" >>$GITHUB_OUTPUT
+      - name: Create new tag
+        id: get_tag
+        run: |
+          new_tag="cs-$(date "+%Y.%m.%d")"
+          existing_tag_revision=$(git tag | grep "$new_tag" | sort -r | head -n 1 | cut -d- -f3 | cut -dr -f2)
+          if [ -n "$existing_tag_revision" ]; then
+            tag_rev=$((existing_tag_revision + 1))
+          else
+            tag_rev=1
+          fi
+          new_tag="${new_tag}-r${tag_rev}"
+          git tag "$new_tag"
+          git push --tags
+          echo "tag_name=$new_tag" >>$GITHUB_OUTPUT
+      - name: Publish GitHub release
+        uses: termux/upload-release-action@v4.2.0
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: "*.tgz"
+          file_glob: true
+          release_name: "CS archives for VHEditor application"
+          tag: ${{ steps.get_tag.outputs.tag_name }}
+          body: ${{ steps.get_checksums.outputs.checksums }}
