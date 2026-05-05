@@ -6,7 +6,7 @@ permissions:
 on:
   # push:
   #   branches:
-  #   - master
+  #   - master-brian200508
   #   paths:
   #   - .github/workflows/bootstrap_archives.yml
   # schedule:
@@ -55,8 +55,8 @@ jobs:
           password: ${{ secrets.DOCKERHUB_PAT }}
       - name: Pull Docker image
         run: |
-          docker pull $IMAGE_NAME:master
-          docker tag $IMAGE_NAME:master vsandroidenv:latest
+          docker pull $IMAGE_NAME:master-brian200508
+          docker tag $IMAGE_NAME:master-brian200508 vsandroidenv:latest
       - name: Create archive
         run: |
           ./dev.sh docker-run bash -c '
